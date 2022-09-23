@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -26,6 +27,9 @@ public class Topic_13_Action {
 	public void beforeClass() {
 		System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
 		driver = new FirefoxDriver();
+		
+//		System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDrivers\\chromedriver.exe");
+//		driver = new ChromeDriver();
 		jsExecutor = (JavascriptExecutor) driver;
 		action = new Actions(driver);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -105,6 +109,20 @@ public class Topic_13_Action {
 		sleepInSecond(3);
 		action.doubleClick(driver.findElement(By.xpath("//button[text()='Double click me']"))).perform();
 		Assert.assertEquals(driver.findElement(By.cssSelector("p#demo")).getText(), "Hello Automation Guys!");
+
+	}
+
+	@Test
+	public void TC_07_Right_Click() {
+		driver.get("http://swisnl.github.io/jQuery-contextMenu/demo.html");
+		action.contextClick(driver.findElement(By.cssSelector("span.context-menu-one"))).perform();
+		action.moveToElement(driver.findElement(By.cssSelector("li.context-menu-icon-quit"))).perform();
+		Assert.assertTrue(
+				driver.findElement(By.cssSelector("li.context-menu-icon-quit.context-menu-visible.context-menu-hover"))
+						.isDisplayed());
+		driver.findElement(By.xpath("//span[text()='Quit']")).click();
+		driver.switchTo().alert().accept();
+		Assert.assertFalse(driver.findElement(By.cssSelector("li.context-menu-icon-quit")).isDisplayed());
 
 	}
 
