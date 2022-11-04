@@ -81,7 +81,7 @@ public class Topic_15_PIII_ExplicitWait {
 
 		//Verify ngày được chọn là 20/10/2022
 		Assert.assertEquals(driver.findElement(By.cssSelector("span#ctl00_ContentPlaceholder1_Label1")).getText(),
-				"Thursday, October 20, 2022");
+				"Sunday, November 20, 2022");
 		
 
 	}
